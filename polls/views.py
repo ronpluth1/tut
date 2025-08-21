@@ -9,7 +9,10 @@ def index(request):
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
     template = loader.get_template("polls/index.html")
     context = {"latest_question_list": latest_question_list}
-    return HttpResponse(template.render(context, request))
+    response = HttpResponse(template.render(context, request))
+    # response['Content-Type'] = 'text/plain'  # Set Content-Type header
+    # response['X-Custom-Header'] = 'My Value' # Set a custom header
+    return response
 
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s." % question_id)
